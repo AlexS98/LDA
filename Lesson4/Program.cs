@@ -32,7 +32,7 @@ namespace Lesson4
 
             //Console.WriteLine(FactorNoRec(5));
 
-            var a = new int[,] { 
+            var array = new int[,] { 
                 { 5, 1, 2, 8, 99, 10 }, 
                 { 5, 1, 2, 8, 10, 5 } 
             };
@@ -40,6 +40,43 @@ namespace Lesson4
             Console.WriteLine(Max(15, 100, -10, 0));
 
             Console.WriteLine(double.IsNaN(double.NaN));
+
+            // 1
+            int someVar = array[0, 0] > 0 && array[0, 1] > 0 ? Factor(array[0, 0]) : array[0, 1]; // > 0
+                    //? Factor(array[0, 1])
+                    //: -15;
+
+            // 2
+            int someVar1;
+            if (array[0, 0] > 0 && array[0, 1] > 0)
+            {
+                someVar1 = Factor(array[0, 0]);
+            }
+            else
+            {
+                if (array[0, 1] > 0)
+                {
+                    someVar1 = Factor(array[0, 1]);
+                }
+                else
+                {
+                    someVar1 = -15;
+                }
+            }
+
+            // 3
+            if (array[0, 0] > 0 && array[0, 1] > 0)
+            {
+                someVar1 = Factor(array[0, 0]);
+            }
+            else if (array[0, 1] > 0)
+            {
+                someVar1 = Factor(array[0, 1]);
+            }
+            else
+            {
+                someVar1 = -15;
+            }
         }
 
         static int Factor(int value)
