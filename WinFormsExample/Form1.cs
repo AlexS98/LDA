@@ -43,6 +43,13 @@ namespace WinFormsExample
             DefaultBrush = Brushes.Black;
         }
 
+        protected override void OnClientSizeChanged(EventArgs e)
+        {
+            base.OnClientSizeChanged(e);
+            Graphics = CreateGraphics();
+            Graphics.TranslateTransform(Width / 2, Height / 2);
+        }
+
         protected override void OnClick(EventArgs e)
         {
             base.OnClick(e);
@@ -130,7 +137,7 @@ namespace WinFormsExample
                 {
                     if (MathF.Abs(MathF.Abs(newPoint.Y) - scale) <= 0.15 / scale)
                     {
-                        ShowPoint(newPoint);
+                        ShowPoint(points: newPoint);
                     }
 
                     Graphics.DrawLine(greenPen, prevSinPoint.Value, newPoint);
@@ -141,14 +148,92 @@ namespace WinFormsExample
             PlotAppeared = true;
         }
 
-        private void ShowPoint(PointF point, Pen pen = null, int halfSize = 5)
+        private void ShowPoint(Pen pen = null, int halfSize = 5, params PointF[] points)
         {
-            Graphics.DrawEllipse(pen ?? DefaultPen, point.X - halfSize, point.Y - halfSize, halfSize * 2, halfSize * 2);
+            foreach (var point in points)
+            {
+                Graphics.DrawEllipse(pen ?? DefaultPen, point.X - halfSize, point.Y - halfSize, halfSize * 2, halfSize * 2);
+            }
         }
 
         private void brnClear_Click(object sender, EventArgs e)
         {
             Clear();
+        }
+
+        private void btnTree_Click(object sender, EventArgs e)
+        {
+            Clear();
+            PointF startPoint = new PointF(0, 300);
+            PointF endPoint = new PointF(0, 0);
+            DrawTree(startPoint, endPoint, (int)numericUpDown2.Value);
+        }
+
+        private void DrawTree(PointF startPoint, PointF endPoint, int deep)
+        {
+            var greenPen = new Pen(Color.Green, 1);
+
+            float length = startPoint.Distance(endPoint);
+            PointF shortChild, rightChild, leftChild, centralChild, sLeftChild, sRightChild, sCentralChild;
+
+            float childLength = length / 2;
+
+            if (deep != (int)numericUpDown2.Value && length > 1)
+            {
+                Graphics.DrawLine(greenPen, startPoint, endPoint);
+            }
+            else
+            {
+                PlotAppeared = true;
+            }
+
+            shortChild = new PointF(endPoint.X + (endPoint.X - startPoint.X) / 2, endPoint.Y + (endPoint.Y - startPoint.Y) / 2);
+            centralChild = new PointF(endPoint.X + (endPoint.X - startPoint.X) / 2, endPoint.Y + (endPoint.Y - startPoint.Y) / 2);
+            sCentralChild = RotatePoint(shortChild, endPoint, 180);
+            leftChild = RotatePoint(centralChild, endPoint, -120);
+            rightChild = RotatePoint(centralChild, endPoint, 120);
+            sLeftChild = RotatePoint(shortChild, endPoint, -60);
+            sRightChild = RotatePoint(shortChild, endPoint, 60);
+
+            if (deep != 0)
+            {
+                DrawTree(endPoint, centralChild, deep - 1);
+                DrawTree(endPoint, rightChild, deep - 1);
+                DrawTree(endPoint, leftChild, deep - 1);
+
+                DrawTree(endPoint, sCentralChild, deep - 1);
+                DrawTree(endPoint, sRightChild, deep - 1);
+                DrawTree(endPoint, sLeftChild, deep - 1);
+            }
+            else if (length > 1)
+            {
+                Graphics.DrawLine(greenPen, endPoint, rightChild);
+                Graphics.DrawLine(greenPen, endPoint, centralChild);
+                Graphics.DrawLine(greenPen, endPoint, leftChild);
+
+                Graphics.DrawLine(greenPen, endPoint, sRightChild);
+                Graphics.DrawLine(greenPen, endPoint, sCentralChild);
+                Graphics.DrawLine(greenPen, endPoint, sLeftChild);
+            }
+        }
+
+        private float ToRadians(float angleInDegrees)
+        {
+            return angleInDegrees * (MathF.PI / 180);
+        }
+
+        private PointF RotatePoint(PointF pointToRotate, PointF centerPoint, float angleInDegrees)
+        {
+            float angleInRadians = ToRadians(angleInDegrees);
+            float cosTheta = MathF.Cos(angleInRadians);
+            float sinTheta = MathF.Sin(angleInRadians);
+            return new PointF
+            {
+                X = cosTheta * (pointToRotate.X - centerPoint.X) -
+                    sinTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.X,
+                Y = sinTheta * (pointToRotate.X - centerPoint.X) +
+                    cosTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.Y
+            };
         }
     }
 }

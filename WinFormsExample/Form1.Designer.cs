@@ -32,12 +32,15 @@ namespace WinFormsExample
             this.btnSin = new System.Windows.Forms.Button();
             this.brnClear = new System.Windows.Forms.Button();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.btnTree = new System.Windows.Forms.Button();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSin
             // 
-            this.btnSin.Location = new System.Drawing.Point(694, 409);
+            this.btnSin.Location = new System.Drawing.Point(112, 45);
             this.btnSin.Name = "btnSin";
             this.btnSin.Size = new System.Drawing.Size(94, 29);
             this.btnSin.TabIndex = 0;
@@ -47,7 +50,7 @@ namespace WinFormsExample
             // 
             // brnClear
             // 
-            this.brnClear.Location = new System.Drawing.Point(12, 12);
+            this.brnClear.Location = new System.Drawing.Point(12, 78);
             this.brnClear.Name = "brnClear";
             this.brnClear.Size = new System.Drawing.Size(94, 29);
             this.brnClear.TabIndex = 2;
@@ -62,7 +65,7 @@ namespace WinFormsExample
             0,
             0,
             0});
-            this.numericUpDown1.Location = new System.Drawing.Point(694, 376);
+            this.numericUpDown1.Location = new System.Drawing.Point(12, 45);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             250,
             0,
@@ -82,17 +85,47 @@ namespace WinFormsExample
             0,
             0});
             // 
+            // btnTree
+            // 
+            this.btnTree.Location = new System.Drawing.Point(112, 10);
+            this.btnTree.Name = "btnTree";
+            this.btnTree.Size = new System.Drawing.Size(94, 29);
+            this.btnTree.TabIndex = 4;
+            this.btnTree.Text = "Tree";
+            this.btnTree.UseVisualStyleBackColor = true;
+            this.btnTree.Click += new System.EventHandler(this.btnTree_Click);
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(12, 12);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(94, 27);
+            this.numericUpDown2.TabIndex = 5;
+            this.numericUpDown2.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.numericUpDown2);
+            this.Controls.Add(this.btnTree);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.brnClear);
             this.Controls.Add(this.btnSin);
             this.Name = "Form1";
             this.Text = "Playground";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -102,6 +135,8 @@ namespace WinFormsExample
         private System.Windows.Forms.Button btnSin;
         private System.Windows.Forms.Button brnClear;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Button btnTree;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
     }
 }
 
