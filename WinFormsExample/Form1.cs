@@ -164,7 +164,7 @@ namespace WinFormsExample
         private void btnTree_Click(object sender, EventArgs e)
         {
             Clear();
-            PointF startPoint = new PointF(0, 300);
+            PointF startPoint = new PointF(0, 200);
             PointF endPoint = new PointF(0, 0);
             DrawTree(startPoint, endPoint, (int)numericUpDown2.Value);
         }
@@ -172,6 +172,8 @@ namespace WinFormsExample
         private void DrawTree(PointF startPoint, PointF endPoint, int deep)
         {
             var greenPen = new Pen(Color.Green, 1);
+            var blackPen = new Pen(Color.Brown, deep);
+
 
             float length = startPoint.Distance(endPoint);
             PointF shortChild, rightChild, leftChild, centralChild, sLeftChild, sRightChild, sCentralChild;
@@ -180,39 +182,40 @@ namespace WinFormsExample
 
             if (deep != (int)numericUpDown2.Value && length > 1)
             {
-                Graphics.DrawLine(greenPen, startPoint, endPoint);
+                Graphics.DrawLine(blackPen, startPoint, endPoint);
             }
             else
             {
+                Graphics.DrawLine(blackPen, startPoint, endPoint);
                 PlotAppeared = true;
             }
 
-            shortChild = new PointF(endPoint.X + (endPoint.X - startPoint.X) / 2, endPoint.Y + (endPoint.Y - startPoint.Y) / 2);
-            centralChild = new PointF(endPoint.X + (endPoint.X - startPoint.X) / 2, endPoint.Y + (endPoint.Y - startPoint.Y) / 2);
-            sCentralChild = RotatePoint(shortChild, endPoint, 180);
-            leftChild = RotatePoint(centralChild, endPoint, -120);
-            rightChild = RotatePoint(centralChild, endPoint, 120);
-            sLeftChild = RotatePoint(shortChild, endPoint, -60);
-            sRightChild = RotatePoint(shortChild, endPoint, 60);
+            shortChild = new PointF(endPoint.X + (endPoint.X - startPoint.X) / 3 * 2, endPoint.Y + (endPoint.Y - startPoint.Y) / 3 * 2);
+            //centralChild = new PointF(endPoint.X + (endPoint.X - startPoint.X) / 2, endPoint.Y + (endPoint.Y - startPoint.Y) / 2);
+            //sCentralChild = RotatePoint(shortChild, endPoint, 180);
+            //leftChild = RotatePoint(centralChild, endPoint, -120);
+            //rightChild = RotatePoint(centralChild, endPoint, 120);
+            sLeftChild = RotatePoint(shortChild, endPoint, -30);
+            sRightChild = RotatePoint(shortChild, endPoint, 30);
 
             if (deep != 0)
             {
-                DrawTree(endPoint, centralChild, deep - 1);
-                DrawTree(endPoint, rightChild, deep - 1);
-                DrawTree(endPoint, leftChild, deep - 1);
+                //DrawTree(endPoint, centralChild, deep - 1);
+                //DrawTree(endPoint, rightChild, deep - 1);
+                //DrawTree(endPoint, leftChild, deep - 1);
 
-                DrawTree(endPoint, sCentralChild, deep - 1);
+                //DrawTree(endPoint, sCentralChild, deep - 1);
                 DrawTree(endPoint, sRightChild, deep - 1);
                 DrawTree(endPoint, sLeftChild, deep - 1);
             }
             else if (length > 1)
             {
-                Graphics.DrawLine(greenPen, endPoint, rightChild);
-                Graphics.DrawLine(greenPen, endPoint, centralChild);
-                Graphics.DrawLine(greenPen, endPoint, leftChild);
+                //Graphics.DrawLine(greenPen, endPoint, rightChild);
+                //Graphics.DrawLine(greenPen, endPoint, centralChild);
+                //Graphics.DrawLine(greenPen, endPoint, leftChild);
 
                 Graphics.DrawLine(greenPen, endPoint, sRightChild);
-                Graphics.DrawLine(greenPen, endPoint, sCentralChild);
+                //Graphics.DrawLine(greenPen, endPoint, sCentralChild);
                 Graphics.DrawLine(greenPen, endPoint, sLeftChild);
             }
         }
@@ -234,6 +237,68 @@ namespace WinFormsExample
                 Y = sinTheta * (pointToRotate.X - centerPoint.X) +
                     cosTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.Y
             };
+        }
+
+        private void btnTriangle_Click(object sender, EventArgs e)
+        {
+            Clear();
+            DrawTriangle(new PointF(0, -400), new PointF(400, 300), new PointF(-400, 300), (int)numericUpDown3.Value);
+        }
+
+        private void DrawTriangle(PointF p1, PointF p2, PointF p3, int deep)
+        {
+            var greenPen = new Pen(Color.Green, 1);
+            Graphics.DrawPolygon(greenPen, new[] { p1, p2, p3 });
+            PlotAppeared = true;
+
+            if (deep != 0)
+            {
+                PointF rightC = new PointF(p1.X - (p1.X - p2.X) / 2, p1.Y - (p1.Y - p2.Y) / 2);
+                PointF centerC = new PointF(p2.X - (p2.X - p3.X) / 2, p2.Y - (p2.Y - p3.Y) / 2);
+                PointF leftC = new PointF(p3.X - (p3.X - p1.X) / 2, p3.Y - (p3.Y - p1.Y) / 2);
+
+                DrawTriangle(p1, rightC, leftC, deep - 1);
+                DrawTriangle(rightC, p2, centerC, deep - 1);
+                DrawTriangle(leftC, centerC, p3, deep - 1);
+            }
+        }
+        
+        private void HandleLine(PointF p1, PointF p2, int deep)
+        {
+            var greenPen = new Pen(Color.Green, 2);
+
+            if (deep != 0)
+            {
+                PointF rightC = MiddlePoint(p1, p2);
+
+                PointF rightTop = MiddlePoint(p1, rightC, 3f / 2);
+                PointF rightBot = MiddlePoint(rightC, p2, 3);
+                PointF rightAway = RotatePoint(MiddlePoint(p1, rightC), rightC, 90);
+
+                HandleLine(rightTop, rightAway, deep - 1);
+                HandleLine(p1, rightTop, deep - 1);
+                HandleLine(rightBot, p2, deep - 1);
+                HandleLine(rightAway, rightBot, deep - 1);
+
+            }
+            else
+            {
+                Graphics.DrawLine(greenPen, p1, p2);
+            }
+        }
+
+        private PointF MiddlePoint(PointF p1, PointF p2, float divider = 2)
+        {
+            return new PointF(p1.X - (p1.X - p2.X) / divider, p1.Y - (p1.Y - p2.Y) / divider);
+        }
+
+        private void btnStar_Click(object sender, EventArgs e)
+        {
+            Clear();
+            PlotAppeared = true; 
+            HandleLine(new PointF(0, -200), new PointF(200, 150), (int)numericUpDown4.Value);
+            HandleLine(new PointF(200, 150), new PointF(-200, 150), (int)numericUpDown4.Value);
+            HandleLine(new PointF(-200, 150), new PointF(0, -200), (int)numericUpDown4.Value);
         }
     }
 }
