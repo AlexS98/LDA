@@ -178,8 +178,6 @@ namespace WinFormsExample
             float length = startPoint.Distance(endPoint);
             PointF shortChild, rightChild, leftChild, centralChild, sLeftChild, sRightChild, sCentralChild;
 
-            float childLength = length / 2;
-
             if (deep != (int)numericUpDown2.Value && length > 1)
             {
                 Graphics.DrawLine(blackPen, startPoint, endPoint);
@@ -195,8 +193,8 @@ namespace WinFormsExample
             //sCentralChild = RotatePoint(shortChild, endPoint, 180);
             //leftChild = RotatePoint(centralChild, endPoint, -120);
             //rightChild = RotatePoint(centralChild, endPoint, 120);
-            sLeftChild = RotatePoint(shortChild, endPoint, -30);
-            sRightChild = RotatePoint(shortChild, endPoint, 30);
+            sLeftChild = shortChild.RotatePoint(endPoint, -30);
+            sRightChild = shortChild.RotatePoint(endPoint, 30);
 
             if (deep != 0)
             {
@@ -218,25 +216,6 @@ namespace WinFormsExample
                 //Graphics.DrawLine(greenPen, endPoint, sCentralChild);
                 Graphics.DrawLine(greenPen, endPoint, sLeftChild);
             }
-        }
-
-        private float ToRadians(float angleInDegrees)
-        {
-            return angleInDegrees * (MathF.PI / 180);
-        }
-
-        private PointF RotatePoint(PointF pointToRotate, PointF centerPoint, float angleInDegrees)
-        {
-            float angleInRadians = ToRadians(angleInDegrees);
-            float cosTheta = MathF.Cos(angleInRadians);
-            float sinTheta = MathF.Sin(angleInRadians);
-            return new PointF
-            {
-                X = cosTheta * (pointToRotate.X - centerPoint.X) -
-                    sinTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.X,
-                Y = sinTheta * (pointToRotate.X - centerPoint.X) +
-                    cosTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.Y
-            };
         }
 
         private void btnTriangle_Click(object sender, EventArgs e)
@@ -273,7 +252,7 @@ namespace WinFormsExample
 
                 PointF rightTop = MiddlePoint(p1, rightC, 3f / 2);
                 PointF rightBot = MiddlePoint(rightC, p2, 3);
-                PointF rightAway = RotatePoint(MiddlePoint(p1, rightC), rightC, 90);
+                PointF rightAway = MiddlePoint(p1, rightC).RotatePoint(rightC, 90);
 
                 HandleLine(rightTop, rightAway, deep - 1);
                 HandleLine(p1, rightTop, deep - 1);

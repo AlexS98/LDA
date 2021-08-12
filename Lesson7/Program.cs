@@ -6,6 +6,16 @@ namespace Lesson7
     {
         static void Main(string[] args)
         {
+
+            User u1 = new User();
+            User u2 = u1.GetCopy();
+            //u1.Contacts.Email = "11";
+            Console.WriteLine(u1.GetCopy() == u1.GetCopy());
+            //Console.WriteLine(u1.Contacts == u2.Contacts);
+            //Console.WriteLine(u1.Contacts.Email == u2.Contacts.Email);
+
+            // Cell 
+
             Validator minLengthValidator = new Validator(CheckType.StringMinLength, 3);
             Validator noWhiteSpaceValidator = new Validator(CheckType.StringNoWhiteSpace);
             Validator firstUpperCaseValidator = new Validator(CheckType.StringFirstUpperCase);
