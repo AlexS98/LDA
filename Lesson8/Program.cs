@@ -6,8 +6,11 @@ namespace Lesson8
     {
         static void Main(string[] args)
         {
+            // Animal animal = new Animal("", 0);
             Animal cat1 = new Cat("Tom", 10);
             Animal dog1 = new Dog("Bob", 5);
+
+            cat1.Foo();
 
             //(dog1 as Cat)?.Eat();
 

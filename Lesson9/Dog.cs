@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Lesson8
+namespace Lesson9
 {
     public class Dog : Animal
     {
@@ -28,11 +28,6 @@ namespace Lesson8
         public override string ToString()
         {
             return base.ToString();
-        }
-
-        public override void Foo()
-        {
-
         }
     }
 }

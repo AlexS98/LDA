@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lesson7", "Lesson7\Lesson7.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsExample", "WinFormsExample\WinFormsExample.csproj", "{EFA11AC0-FE7E-44ED-AD4F-090E74DD25DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson8", "Lesson8\Lesson8.csproj", "{FA2B12F0-6BFA-49FC-B7C9-216C2249CACB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lesson8", "Lesson8\Lesson8.csproj", "{FA2B12F0-6BFA-49FC-B7C9-216C2249CACB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson9", "Lesson9\Lesson9.csproj", "{3602BFF8-71AB-44AC-A298-A4780EA9442A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{FA2B12F0-6BFA-49FC-B7C9-216C2249CACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA2B12F0-6BFA-49FC-B7C9-216C2249CACB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA2B12F0-6BFA-49FC-B7C9-216C2249CACB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3602BFF8-71AB-44AC-A298-A4780EA9442A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3602BFF8-71AB-44AC-A298-A4780EA9442A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3602BFF8-71AB-44AC-A298-A4780EA9442A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3602BFF8-71AB-44AC-A298-A4780EA9442A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -26,12 +26,16 @@ namespace Lesson5
                 for (int k = 0; k < field.GetLength(1); k++)
                 {
                     if (field[i, k] == 0 ||
-                        AnyEqualWithFirst(field[i, k],
+                        AnyEqualWithFirst(
+                            field[i, k],
                             GetCellValue(field, i - 1, k),
-                            GetCellValue(field, i + 1, k)) ||
-                        AnyEqualWithFirst(field[i, k],
+                            GetCellValue(field, i + 1, k)
+                            ) ||
+                        AnyEqualWithFirst(
+                            field[i, k],
                             GetCellValue(field, i, k + 1),
-                            GetCellValue(field, i, k - 1))
+                            GetCellValue(field, i, k - 1)
+                            )
                         )
                     {
                         return true;
@@ -140,6 +144,8 @@ namespace Lesson5
             }
         }
 
+        // qwe : 5 : - : 1 : 0
+
         static void SetRandomNumbers(int[,] field, int count = 2)
         {
             Random r = new Random();
@@ -231,10 +237,13 @@ namespace Lesson5
             {
                 if (line[i] == line[i + 1])
                 {
-                    line[i] = 2 * line[i];
+                    line[i] = line[i + 1] + line[i];
                     line[i + 1] = 0;
                 }
             }
+
+            // 2 2 2 2 => 4 0 4 0 => 4 4 0 0
+
             //remove empty
             for (int k = 0; k < line.Length - 1; k++)
             {
@@ -249,6 +258,8 @@ namespace Lesson5
             }
             return line;
         }
+
+
 
         static void ToConsole(string str, ConsoleColor color = ConsoleColor.White)
         {

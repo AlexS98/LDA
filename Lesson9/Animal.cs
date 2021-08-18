@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 
-namespace Lesson8
+namespace Lesson9
 {
-    public abstract class Animal
+    public abstract class Animal : IPositionHolder
     {
         public string Name { get; set; }
         public int Age { get; set; }
+        public Vector3 Position { get; set; }
 
         public Animal(string name, int age)
         {
@@ -16,10 +18,5 @@ namespace Lesson8
         }
 
         public abstract void MakeNoise();
-
-        public virtual void Foo()
-        {
-
-        }
     }
 }
