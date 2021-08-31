@@ -279,5 +279,10 @@ namespace WinFormsExample
             HandleLine(new PointF(200, 150), new PointF(-200, 150), (int)numericUpDown4.Value);
             HandleLine(new PointF(-200, 150), new PointF(0, -200), (int)numericUpDown4.Value);
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

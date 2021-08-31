@@ -15,13 +15,14 @@ namespace Lesson7
             //Console.WriteLine(u1.Contacts.Email == u2.Contacts.Email);
 
             // Cell 
+            var minLengthGValidator = new GenericValidator<string>((str) => str.Trim().Length >= 3, CheckType.StringMinLength.ToString());
 
             Validator minLengthValidator = new Validator(CheckType.StringMinLength, 3);
             Validator noWhiteSpaceValidator = new Validator(CheckType.StringNoWhiteSpace);
             Validator firstUpperCaseValidator = new Validator(CheckType.StringFirstUpperCase);
 
-            Validator[] defaultNameValidators = {
-                minLengthValidator,
+            IValidator<string>[] defaultNameValidators = {
+                minLengthGValidator,
                 noWhiteSpaceValidator,
                 firstUpperCaseValidator
             };
@@ -42,7 +43,7 @@ namespace Lesson7
             User user = new User(fName, lName, age, contacts);
         }
 
-        static string GetString(string propName, params Validator[] validators)
+        static string GetString(string propName, params IValidator<string>[] validators)
         {
             bool incorrectInput = false;
             string input;
@@ -67,7 +68,7 @@ namespace Lesson7
             return input;
         }
 
-        static int GetInt(string propName, params Validator[] validators)
+        static int GetInt(string propName, params IValidator<int>[] validators)
         {
             bool incorrectInput;
             string input;

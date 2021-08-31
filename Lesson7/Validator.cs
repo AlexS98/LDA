@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Lesson7
 {
-    public class Validator
+    public class Validator : IValidator<string>, IValidator<int>
     {
         public CheckType ValidatorType { get; private set; }
         public int CheckValue { get; private set; } = int.MinValue;
