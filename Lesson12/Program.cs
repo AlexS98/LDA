@@ -37,6 +37,10 @@ namespace Lesson12
             {
                 Console.WriteLine(list[i]);
             }
+            //foreach (var item in list)
+            //{
+
+            //}
         }
 
         static void PrintLinkedListReversed<T>(LinkedList<T> list) where T : class
