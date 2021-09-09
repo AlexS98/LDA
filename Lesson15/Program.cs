@@ -10,8 +10,9 @@ namespace Lesson15
             UserClient userClient = new UserClient();
             var t = userClient.AddAsync("newUser");
 
-            Task act = Task.Run(() =>
+            Task act = Task.Run(/* async*/ () =>
             {
+                //await Task.Delay(1000);
                 Task.Delay(1000).GetAwaiter().GetResult();
                 Console.WriteLine("Done");
             });
